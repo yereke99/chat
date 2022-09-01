@@ -37,15 +37,17 @@ func main() {
 	}
 
 	go func() {
-		conn, err := server.Accept()
-		if err != nil {
+		for{
+		    conn, err := server.Accept()
+		    if err != nil {
 			panic(err)
-		}
+		    }
 
-		if len(users) < maxUsers {
+		    if len(users) < maxUsers {
 			newConnection <- conn
-		} else {
+		    } else {
 			io.WriteString(conn, "Server is full!")
+		    }
 		}
 	}()
 
